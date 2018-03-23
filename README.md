@@ -1,57 +1,31 @@
 # Project Name
 
-(short, 1-3 sentenced, description of the project)
+Azure Container Instances enables on-demand compute to be provisioned at custom sizing with per second billing. The flexible container runtime enables event-driven products like the Logic Apps connector to create individual containers on-demand in response to a Logic Apps trigger.
 
 ## Features
 
-This project framework provides the following features:
-
-* Feature 1
-* Feature 2
-* ...
+TBD
 
 ## Getting Started
 
 ### Prerequisites
 
-(ideally very short, if any)
-
-- OS
-- Library version
-- ...
+TBD
 
 ### Installation
 
-(ideally very short)
-
-- npm install [package name]
-- mvn install
-- ...
+TBD
 
 ### Quickstart
-(Add steps to get up and running quickly)
 
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
+TBD
 
 
 ## Demo
 
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
+TBD
 
 ## Resources
 
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+aka.ms/aci
+aka.ms/aci/docs
