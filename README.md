@@ -6,11 +6,7 @@ In this article, you create a logic app that regularly checks Email and Twitter 
 
 ![Overview - ACI logic app example](images/azure-add-logic-app-email-overview.png)
 
-To follow this quickstart, you need an email account from a provider that's supported by Logic Apps, 
-such as Office 365 Outlook, Outlook.com, or Gmail. For other providers, 
-[review the connectors list here](https://docs.microsoft.com/connectors/). 
-This logic app uses an Office 365 Outlook account. If you use another email account, 
-the overall steps are the same, but your UI might slightly differ. 
+To follow this quickstart, you need an email account from a provider that's supported by Logic Apps, such as Office 365 Outlook, Outlook.com, or Gmail. For other providers, [review the connectors list here](https://docs.microsoft.com/connectors/). This logic app uses an Office 365 Outlook account. If you use another email account, the overall steps are the same, but your UI might slightly differ. 
 
 Also, if you don't have an Azure subscription, 
 <a href="https://azure.microsoft.com/free/" target="_blank">sign up for a free Azure account</a>.
@@ -28,7 +24,7 @@ Build the Docker images required for the containers on your local machine.
     cd aci-logicapps-integration
     ```
 
-2. Execute the command below to build and push the **extracting** image to Docker Hub.
+2. Execute the command below to build and push the **sentiment** image to Docker Hub.
 
    ```powershell
    docker build -t YOURDOCKERACCOUNTNAME/sentiment .
@@ -37,27 +33,25 @@ Build the Docker images required for the containers on your local machine.
 
 ## Sign in to the Azure portal
 
-Sign in to the <a href="https://portal.azure.com" target="_blank">Azure portal</a> 
-with your Azure account credentials.
+Sign in to the <a href="https://portal.azure.com" target="_blank">Azure portal</a> with your Azure account credentials.
 
-## Create a Resource group
+## Create a resource group
 
 1. From the main Azure menu, choose **Resource groups** > **+ Add**
 
-2. Input the name of the Resource group e.g. `MSAzure-ACI-AKS-LogicApp-Demo`, then click **Create**.
+2. Input the name of the resource group e.g. `MSAzure-ACI-AKS-LogicApp-Demo`, then click **Create**.
 
     ![Create resource group](images/azure-create-resource-group.png)
 
 ## Create your Text Analyze service
 
-1. Open the Resource group you just created, choose **+ Add** on the nav bar
+1. Open the resource group you just created, choose **+ Add** on the nav bar.
 
-3. Input `Text Analytics API` in search box, then choose the **Text Analytics API** > **Create** in results
+3. Input `Text Analytics API` in search box, then choose the **Text Analytics API** > **Create** in results.
 
     ![Search resource](images/azure-add-cognitive-service-01.png)
 
-4. Under **Create Text Analytics API**, provide details about your Text Analytics API as shown here. 
-After you're done, choose **Create**.
+4. Under **Create Text Analytics API**, provide details about your Text Analytics API as shown here. After you're done, choose **Create**.
 
     ![Create Text Analytics API](images/azure-add-cognitive-service-02.png)
 
@@ -80,15 +74,14 @@ After you're done, choose **Create**.
 
 ## Create your logic app 
 
-1. Open the Resource group you just created, choose **+ Add** on the nav bar
+1. Open the resource group you just created, choose **+ Add** on the nav bar.
     ![Resource group overview](images/azure-resource-group-overview.png)
 
-3. Input `logic app` in search box, then choose the **Logic App** > **Create** in results
+3. Input `logic app` in search box, then choose the **Logic App** > **Create** in results.
 
     ![Search resource](images/azure-add-logic-app-01.png)
 
-3. Under **Create logic app**, provide details about your logic app as shown here. 
-After you're done, choose **Pin to dashboard** > **Create**.
+3. Under **Create logic app**, provide details about your logic app as shown here. After you're done, choose **Pin to dashboard** > **Create**.
 
     ![Create logic app](images/azure-add-logic-app-02.png)
 
@@ -100,23 +93,16 @@ After you're done, choose **Pin to dashboard** > **Create**.
    | **Location** | East US | The region where to store your logic app information | 
    | **Log Analytics** | Off | Keep the **Off** setting for diagnostic logging. | 
 
-3. After Azure deploys your app, the Logic Apps Designer opens and shows a page 
-with an introduction video and commonly used triggers. Under **Templates**, 
+3. After Azure deploys your app, the Logic Apps Designer opens and shows a page with an introduction video and commonly used triggers. Under **Templates**, 
 choose **Blank Logic App**.
-
 
     ![Search resource](images/azure-add-logic-app-03.png)
 
-Next, add a trigger 
-that fires when a new Email arrives. Every logic app must start with a trigger, 
-which fires when a specific event happens or when a specific condition is met. 
-Each time the trigger fires, the Logic Apps engine creates a logic app instance 
-that starts and runs your workflow.
+Next, add a trigger that fires when a new Email arrives. Every logic app must start with a trigger, which fires when a specific event happens or when a specific condition is met. Each time the trigger fires, the Logic Apps engine creates a logic app instance that starts and runs your workflow.
 
 ## Check Email with a trigger
 
-1. On the designer, enter "office 365 outlook" in the search box. 
-Select this trigger: **Office 365 Outlook - When a new email arrives**
+1. On the designer, enter `office 365 outlook` in the search box. Select this trigger: **Office 365 Outlook - When a new email arrives**.
 
    ![Select trigger: "Office 365 Outlook - When a new email arrives"](images/azure-add-logic-app-04.png)
 
@@ -130,34 +116,29 @@ Select this trigger: **Office 365 Outlook - When a new email arrives**
    | **Interval** | 3 | The number of intervals to wait between checks | 
    | **Frequency** | Minute | The unit of time for each interval between checks  | 
 
-   Together, the interval and frequency define the schedule for your logic app's trigger. 
-   This logic app checks the feed every 3 minutes.
+   Together, the interval and frequency define the schedule for your logic app's trigger. This logic app checks the feed every 3 minutes.
 
 3. Save your logic app. On the designer toolbar, choose **Save**. 
 
-Your logic app is now live but doesn't do anything other than 
-check the Email. So, add an action that responds when the trigger fires.
+Your logic app is now live but doesn't do anything other than check the Email. So, add an action that responds when the trigger fires.
 
 ## Run a container to get the sentiment
 
-Now add an action to create an Azure Container Instances that analyze the sentiment of this email
+Now add an action to create an Azure Container Instances that analyze the sentiment of this email.
 
-1. Under the **When a new email arrives** trigger, 
-choose **+ New step** > **Add an action**.
+1. Under the **When a new email arrives** trigger, choose **+ New step** > **Add an action**.
 
    ![Add an action](images/azure-add-logic-app-06.png)
 
-2. Under **Choose an action**, search for "content conversion", 
-then select the **Content Conversion - Html to text** action. 
+2. Under **Choose an action**, search for "content conversion", then select the **Content Conversion - Html to text** action. 
 
    ![Convert Html to text](images/azure-add-logic-app-07.png)
 
-3. In the **Content** textbox, choose the **Body** of the email as an input
+3. In the **Content** textbox, choose the **Body** of the email as an input.
 
    ![Convert Html to text](images/azure-add-logic-app-08.png)
 
-2. Under **Choose an action**, search for "container", 
-then select the **Azure Container Instance - Create container group** action. 
+2. Under **Choose an action**, search for `container`, then select the **Azure Container Instance - Create container group** action.
 
    ![Create a container group](images/azure-add-logic-app-09.png)
 
@@ -165,10 +146,9 @@ then select the **Azure Container Instance - Create container group** action.
 
 4. In this case, the container group contains just one container. Choose a name for the container, then specify the following values:
 
-- Image: `hubertsui/sentiment`
-- CPU request: 1.0
-- Memory request 1.5
-
+   - Image: `hubertsui/sentiment`
+   - CPU request: 1.0
+   - Memory request 1.5
 
 7. Create 3 container environment variables, then fill it with following values:
 
@@ -190,8 +170,7 @@ For simplicity, the logic app pulls the summarized text from the container logs.
 
 1. Click **+ New step** > **More** > **Add a do until**, then click **+ Add an action** inside of the Until
 
-2. Under **Choose an action**, search for "container", 
-then select the **Azure Container Instance - Get properties of a container group** action. 
+2. Under **Choose an action**, search for `container`, then select the **Azure Container Instance - Get properties of a container group** action. 
 
    ![Get properties](images/azure-add-logic-app-12.png)
 
@@ -203,12 +182,11 @@ then select the **Azure Container Instance - Get properties of a container group
 
    ![Config the Until](images/azure-add-logic-app-14.png)
 
-5. Click **Add a condition**, then set the condition as same as the condition of the Unti
+5. Click **Add a condition**, then set the condition as same as the condition of the Unti.
 
    ![Config the Condition](images/azure-add-logic-app-15.png)
 
-6. In false part, click **Add an action**, search for "Delay", 
-then select the **Schedule - Delay** action.
+6. In false part, click **Add an action**, search for `Delay`, then select the **Schedule - Delay** action.
 
    ![Add a delay](images/azure-add-logic-app-16.png)
 
@@ -218,7 +196,7 @@ then select the **Schedule - Delay** action.
 
 Now add a new action to collect the logs from the completed container, which contain the summarized text of the article.
 
-1. Click **Add an action** again in true part of the condition and search for "container".
+1. Click **Add an action** again in true part of the condition and search for `container`.
 
 2. Choose the **Azure Container Instances - Get logs of a container** action.
 
@@ -226,11 +204,11 @@ Now add a new action to collect the logs from the completed container, which con
 
 ## Delete the container group
 
-Now we need to clean up the created resource group
+Now we need to clean up the created resource group.
 
 Now add a new action to collect the logs from the completed container, which contain the summarized text of the article.
 
-1. Click **Add an action** again in true part of the condition and search for "container".
+1. Click **Add an action** again in true part of the condition and search for `container`.
 
 2. Choose the **Azure Container Instances - Delete container group** action.
 
@@ -250,13 +228,13 @@ Now you can see the sentiment of your email.
 
 ## Create Logic App to analyze Tweets
 
-1. Navigate to the Logic App you just created, then click the **Overview** > **Clone**
+1. Navigate to the Logic App you just created, then click the **Overview** > **Clone**.
 
-2. Input the name of new Logic App as `TwitterAnalyze`, then choose **Create**
+2. Input the name of new Logic App as `TwitterAnalyze`, then choose **Create**.
     
    ![Create Tweet Analyze](images/azure-add-logic-app-17.png)
 
-3. Navigate to the `TwitterAnalyze` app, choose **Logic App Designer**
+3. Navigate to the `TwitterAnalyze` app, choose **Logic App Designer**.
 
 4. In **Create container group** action, remove all dynamic contents from it so we can delete previous actions.
 
@@ -265,9 +243,9 @@ Now you can see the sentiment of your email.
    | **Message Id** | The message id of your email. | 
    | **The plain text content** | The plain text content of your email. |
 
-5. Delete **Html to text** and **When a new email arrives**
+5. Delete **Html to text** and **When a new email arrives**.
 
-6. Search for "twitter" then choose the **Twitter - When a new tweet is posted**
+6. Search for "twitter" then choose the **Twitter - When a new tweet is posted**.
 
    ![Set up trigger with Twitter](images/azure-add-logic-app-18.png)
 
@@ -281,7 +259,7 @@ Now you can see the sentiment of your email.
    | **Interval** | 3 | The number of intervals to wait between checks | 
    | **Frequency** | Minute | The unit of time for each interval between checks  | 
 
-8. Then set the **Create container group** action like this
+8. Then set the **Create container group** action like this.
 
    ![Set up Create container group](images/azure-add-logic-app-20.png)
 
