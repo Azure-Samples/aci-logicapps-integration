@@ -34,8 +34,6 @@ with your Azure account credentials.
 
 1. Open the Resource group you just created, choose **+ Add** on the nav bar
 
-    ![Resource group overview](images/azure-resource-group-overview.png)
-
 3. Input `Text Analytics API` in search box, then choose the **Text Analytics API** > **Create** in results
 
     ![Search resource](images/azure-add-cognitive-service-01.png)
@@ -51,8 +49,7 @@ After you're done, choose **Create**.
    | **Subscription** | <*your-Azure-subscription-name*> | The name for your Azure subscription | 
    | **Location** | East US | The region where to store your logic app information | 
    | **Price tier** | F0 | In this case, we will use the free version of this service. | 
-   | **Resource group** | MSAzure-ACI-AKS-LogicApp-Demo | The name for the [Azure resource group](../azure-resource-manager/resource-group-overview.md) used to organize related resources | 
-   |||| 
+   | **Resource group** | MSAzure-ACI-AKS-LogicApp-Demo | The name for the [Azure resource group](../azure-resource-manager/resource-group-overview.md) used to organize related resources |
 
 5. Navigate to the Text Analytics API you just created, copy the **Endpoint**. This will be used in logic app creation.
 
@@ -84,7 +81,6 @@ After you're done, choose **Pin to dashboard** > **Create**.
    | **Resource group** | MSAzure-ACI-AKS-LogicApp-Demo | The name for the [Azure resource group](../azure-resource-manager/resource-group-overview.md) used to organize related resources | 
    | **Location** | East US | The region where to store your logic app information | 
    | **Log Analytics** | Off | Keep the **Off** setting for diagnostic logging. | 
-   |||| 
 
 3. After Azure deploys your app, the Logic Apps Designer opens and shows a page 
 with an introduction video and commonly used triggers. Under **Templates**, 
@@ -115,7 +111,6 @@ Select this trigger: **Office 365 Outlook - When a new email arrives**
    | **Folder** | Inbox | The folder of your Outlook you want to monitor | 
    | **Interval** | 3 | The number of intervals to wait between checks | 
    | **Frequency** | Minute | The unit of time for each interval between checks  | 
-   |  |  |  | 
 
    Together, the interval and frequency define the schedule for your logic app's trigger. 
    This logic app checks the feed every 3 minutes.
@@ -164,7 +159,6 @@ then select the **Azure Container Instance - Create container group** action.
    | **BASE_URL** | The **Endpoint** of Text Analytics API. Remember to add a `/` after the url if there is not. | 
    | **SUBSCRIPTION_KEY** | The **Key** of Text Analytics API. | 
    | **TEXT** | The text to get sentiment.  | 
-   |  |  |  | 
 
 8. Finally, set the **RestartPolicy** property to *OnFailure*. This ensures that your container will not restart if it exits successfully.
 
@@ -233,6 +227,46 @@ Now you can see the flow has running history.
 Click a running history, and navigate to **Get logs of a container** action.
 
 Now you can see the sentiment of your email.
+
+![View Result](images/azure-view-result.png)
+
+## Create Logic App to analyze Tweets
+
+1. Navigate to the Logic App you just created, then click the **Overview** > **Clone**
+
+2. Input the name of new Logic App as `TwitterAnalyze`, then choose **Create**
+    
+   ![Create Tweet Analyze](images/azure-add-logic-app-17.png)
+
+3. Navigate to the `TwitterAnalyze` app, choose **Logic App Designer**
+
+4. In **Create container group** action, remove all dynamic contents from it so we can delete previous actions.
+
+   | Name | Description | 
+   | ------- | ----------- | 
+   | **Message Id** | The message id of your email. | 
+   | **The plain text content** | The plain text content of your email. |
+
+5. Delete **Html to text** and **When a new email arrives**
+
+6. Search for "twitter" then choose the **Twitter - When a new tweet is posted**
+
+   ![Set up trigger with Twitter](images/azure-add-logic-app-18.png)
+
+7. Login with your Twitter account, provide this information for your trigger as shown and described: 
+
+   ![Set up trigger with Twitter, frequency, and interval](images/azure-add-logic-app-19.png)
+
+   | Setting | Value | Description | 
+   | ------- | ----- | ----------- | 
+   | **Search text** | from:USER_NAME | This will fetch new tweets from a twitter user. | 
+   | **Interval** | 3 | The number of intervals to wait between checks | 
+   | **Frequency** | Minute | The unit of time for each interval between checks  | 
+
+8. Then set the **Create container group** action like this
+
+   ![Set up Create container group](images/azure-add-logic-app-20.png)
+
 
 ## Clean up resources
 
