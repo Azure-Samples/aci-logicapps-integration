@@ -17,6 +17,24 @@ Also, if you don't have an Azure subscription,
 
 And you need a Twitter account to get tweets.
 
+## Build Docker images
+
+Build the Docker images required for the containers on your local machine.
+
+1. Clone this repository to your local machine.
+
+    ```powershell
+    git clone https://github.com/Azure-Samples/aci-logicapps-integration.git
+    cd aci-logicapps-integration
+    ```
+
+2. Execute the command below to build and push the **extracting** image to Docker Hub.
+
+   ```powershell
+   docker build -t YOURDOCKERACCOUNTNAME/sentiment .
+   docker push YOURDOCKERACCOUNTNAME/sentiment
+   ```
+
 ## Sign in to the Azure portal
 
 Sign in to the <a href="https://portal.azure.com" target="_blank">Azure portal</a> 
