@@ -1,4 +1,10 @@
-# Create container-based serverless workflows with Azure Logic Apps and Azure Container Instances
+---
+services: containerinstances
+platforms: azure
+author: ribhatia
+---
+
+# Run sentiment analysis based on triggers with Azure Container Instances (ACI) and the ACI Logic Apps connector.
 
 Azure Logic Apps enables the creation of powerful business workflows by integrating *connectors* for various services into a single graphical interface. With the connector for Azure Container Instances, you can run containerized applications as part of your Logic Apps workflow. This article covers how to create a simple workflow using the Azure Container Instances connector.
  
