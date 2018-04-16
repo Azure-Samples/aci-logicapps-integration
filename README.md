@@ -270,4 +270,17 @@ When no longer needed, delete the resource group that contains your logic app an
 On the main Azure menu, go to **Resource groups**, and select the resource group for your logic app. 
 Choose **Delete resource group**. Enter the resource group name as confirmation, and choose **Delete**.
 
+## Run your logic app for Twitter
+
+Send a tweet with selected account in Twitter, and wait for 3 minutes.
+
+Now you can see the flow has running history.
+
+Click a running history, and navigate to **Get logs of a container** action.
+
+Now you can see the sentiment of your tweet.
+
+![View Result](images/azure-view-result-twitter.png)
+
+
 !["Resource groups" > "Overview" > "Delete resource group"](images/azure-delete-resource-group.png)
