@@ -151,8 +151,9 @@ Now add an action to create an Azure Container Instances that analyze the sentim
 3. Choose a subscription, resource group, deployment location, and name for your container group.
 
 4. In this case, the container group contains just one container. Choose a name for the container, then specify the following values:
+   > Note: Update the image below to point to the one you built/pushed previously.
 
-   - Image: `hubertsui/sentiment`
+   - Image: `YOURDOCKERACCOUNTNAME/sentiment`
    - CPU request: 1.0
    - Memory request 1.5
 
