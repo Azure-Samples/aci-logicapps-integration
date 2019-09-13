@@ -1,8 +1,13 @@
 ---
-services: containerinstances
-platforms: azure
-author: ribhatia
+page_type: sample
+languages:
+- python
+products:
+- azure
+description: "Azure Logic Apps enables the creation of powerful business workflows by integrating connectors for various services into a single graphical interface."
+urlFragment: aci-logicapps-integration
 ---
+
 
 # Run sentiment analysis based on triggers with Azure Container Instances (ACI) and the ACI Logic Apps connector.
 
